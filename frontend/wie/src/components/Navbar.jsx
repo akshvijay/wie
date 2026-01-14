@@ -3,30 +3,32 @@ import logo from "../assets/logo.jpg";
 
 function NavBar() {
   return (
-    <header className="bg-white border-b border-gray-2800">
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Fixed height container */}
-        <div className="h-16 flex items-left justify-between">
+    <header className="bg-white border-b border-gray-200">
+      {/* Full width container */}
+      <div className="flex h-24 items-center px-6">
 
-          {/* Logo + Text */}
-          <Link to="/" className="flex items-center gap-5">
-            <img
-              src={logo}
-              alt="IEEE WIE BMSIT&M"
-              className="h-18 w-auto"
-            />
-            <div className="leading-tight">
-              <p className="text-xl font-semibold text-gray-900 leading-none">
-                IEEE Women in Engineering
-              </p>
-              <p className="text-lg text-gray-500 leading-none mt-1">
-                BMS Institute of Technology & Management
-              </p>
-            </div>
-          </Link>
+        {/* Logo + Text */}
+        <Link to="/" className="flex items-center gap-5">
+          <img
+            src={logo}
+            alt="IEEE WIE BMSIT&M"
+            className="h-16 w-auto"
+          />
+          <div className="leading-tight">
+            <p className="text-xl font-semibold text-gray-900 leading-none">
+              IEEE Women in Engineering
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
+              BMS Institute of Technology & Management
+            </p>
+          </div>
+        </Link>
+
+        {/* Right Side */}
+        <div className="ml-auto flex items-center gap-10">
 
           {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-xl font-large text-gray-1000">
+          <nav className="hidden md:flex items-center gap-8 text-lg font-medium text-gray-700">
             {[
               { name: "Home", path: "/" },
               { name: "About", path: "/about" },
@@ -53,7 +55,7 @@ function NavBar() {
           {/* CTA Button */}
           <Link
             to="/join"
-            className="hidden md:flex items-center justify-center h-9 px-4 rounded-md bg-[#FDB515] text-sm font-semibold text-black hover:opacity-90"
+            className="hidden md:flex items-center justify-center h-10 px-5 rounded-md bg-[#FDB515] text-base font-semibold text-black hover:opacity-90"
           >
             Join WIE
           </Link>
