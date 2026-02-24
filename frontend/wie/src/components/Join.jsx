@@ -11,7 +11,7 @@ function Join() {
         </p>
 
         <a
-          href="https://forms.gle/your-form-link"
+          href="https://www.ieee.org/membership-catalog/productdetail/showProductDetailPage.html?product=MEMWIE050&searchResults=Y"
           target="_blank"
           className="bg-wiePurple text-white px-6 py-3 rounded-full font-medium"
         >
