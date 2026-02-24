@@ -35,6 +35,8 @@ function NavBar() {
               { name: "Events", path: "/events" },
               { name: "Team", path: "/team" },
               { name: "Contact", path: "/contact" },
+              { name: "Updates", path: "/updates" }
+
             ].map((item) => (
               <NavLink
                 key={item.name}

@@ -1,3 +1,4 @@
+// Image imports (from src/assets/team)
 import aditya from "../assets/team/aditya.jpeg";
 import mimansha from "../assets/team/mimansha.jpeg";
 import ansh from "../assets/team/ansh.jpeg";
@@ -8,71 +9,160 @@ import sushma from "../assets/team/sushma.jpeg";
 import priya from "../assets/team/priya.jpeg";
 
 import hasini from "../assets/team/hasini.jpeg";
-import kushadhi from "../assets/team/kushadi.jpeg";
+import kushadhi from "../assets/team/kushadhi.jpeg";
 import poorvi from "../assets/team/poorvi.jpeg";
 import sparsha from "../assets/team/sparsha.jpeg";
 import swati from "../assets/team/swati.jpeg";
 import pranjal from "../assets/team/pranjal.jpeg";
 
-const exCom = [
-  { name: "Aditya Singh", role: "Chair", img: aditya },
-  { name: "Mimansha Mishra", role: "Vice Chair", img: mimansha },
-  { name: "Ansh Rastogi", role: "Secretary", img: ansh },
-  { name: "Chandana S", role: "Treasurer", img: chandana },
-  { name: "Adarsh Singh", role: "Tech Head", img: adarsh },
-  { name: "Akshita", role: "Tech Co-Head", img: akshita },
-  { name: "Sushma", role: "Marketing Head", img: sushma },
-  { name: "Priya T S", role: "Events Head", img: priya },
-];
+function Team() {
+  const excom = [
+    {
+      name: "Aditya Singh",
+      role: "Chairperson",
+      img: aditya,
+      punch: "Driving vision, leadership, and strategic growth.",
+    },
+    {
+      name: "Mimansha Mishra",
+      role: "Vice Chairperson",
+      img: mimansha,
+      punch: "Strengthening leadership through collaboration and execution.",
+    },
+    {
+      name: "Ansh Rastogi",
+      role: "Secretary",
+      img: ansh,
+      punch: "Ensuring clarity, coordination, and continuity.",
+    },
+    {
+      name: "Chandana S",
+      role: "Treasurer",
+      img: chandana,
+      punch: "Managing resources with transparency and responsibility.",
+    },
+    {
+      name: "Adarsh Singh",
+      role: "Technical Head",
+      img: adarsh,
+      punch: "Leading innovation and technical excellence.",
+    },
+    {
+      name: "Akshita",
+      role: "Technical Co-Head",
+      img: akshita,
+      punch: "Building reliable systems and technical support.",
+    },
+    {
+      name: "Sushma",
+      role: "Marketing Head",
+      img: sushma,
+      punch: "Amplifying impact through strategic communication.",
+    },
+    {
+      name: "Priya T S",
+      role: "Events Head",
+      img: priya,
+      punch: "Designing meaningful and engaging experiences.",
+    },
+  ];
 
-const team = [
-  { name: "Hasini", role: "Technical Associate", img: hasini },
-  { name: "Kushadhi J", role: "Media Associate", img: kushadhi },
-  { name: "Poorvi", role: "Events Associate", img: poorvi },
-  { name: "Sparsha S", role: "Events Associate", img: sparsha },
-  { name: "Swati Garg", role: "Marketing Associate", img: swati },
-  { name: "Pranjal", role: "Design Associate", img: pranjal },
-];
+  const team = [
+    {
+      name: "Hasini",
+      role: "Technical Associate",
+      img: hasini,
+      punch: "Supporting development and technical initiatives.",
+    },
+    {
+      name: "Kushadhi J",
+      role: "Media Associate",
+      img: kushadhi,
+      punch: "Curating content and visual storytelling.",
+    },
+    {
+      name: "Poorvi",
+      role: "Events Associate",
+      img: poorvi,
+      punch: "Assisting in planning and execution of events.",
+    },
+    {
+      name: "Sparsha S",
+      role: "Events Associate",
+      img: sparsha,
+      punch: "Coordinating logistics and participant engagement.",
+    },
+    {
+      name: "Swati Garg",
+      role: "Marketing Associate",
+      img: swati,
+      punch: "Extending outreach through creative campaigns.",
+    },
+    {
+      name: "Pranjal",
+      role: "Design Associate",
+      img: pranjal,
+      punch: "Crafting visuals with clarity and purpose.",
+    },
+  ];
 
-function TeamCard({ name, role, img }) {
-  return (
-    <div className="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
+  const MemberCard = ({ member }) => (
+    <div className="flex flex-col items-center text-center">
       <img
-        src={img}
-        alt={name}
-        className="w-28 h-28 object-cover rounded-full mx-auto mb-4 border-4 border-wiePurple"
+        src={member.img}
+        alt={member.name}
+        className="w-52 h-52 object-cover rounded-xl shadow mb-4"
       />
-      <h3 className="font-semibold text-lg text-darkGray">{name}</h3>
-      <p className="text-sm text-gray-500">{role}</p>
+
+      <p className="text-lg italic text-gray-600 mb-3 max-w-sm">
+        “{member.punch}”
+      </p>
+
+      <h3 className="text-xl font-semibold text-gray-900">
+        {member.name}
+      </h3>
+      <p className="text-gray-600">{member.role}</p>
     </div>
   );
-}
 
-function Team() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
-      {/* ExCom */}
-      <h2 className="text-3xl font-bold text-ieeeBlue text-center mb-10">
-        WIE ExCom 2026 ✨
-      </h2>
+    <section className="bg-white pt-8 pb-20 px-6">
+      <div className="max-w-6xl mx-auto">
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-        {exCom.map((member, i) => (
-          <TeamCard key={i} {...member} />
-        ))}
+        {/* ExCom */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold text-center mb-2">
+            WIE ExCom 2026
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            Executive committee guiding the vision and operations of IEEE WIE BMSIT&M
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
+            {excom.map((member) => (
+              <MemberCard key={member.name} member={member} />
+            ))}
+          </div>
+        </div>
+
+        {/* Team */}
+        <div>
+          <h2 className="text-2xl font-semibold text-center mb-2">
+            WIE Team 2026
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            Dedicated associates supporting technical, creative, and operational efforts
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
+            {team.map((member) => (
+              <MemberCard key={member.name} member={member} />
+            ))}
+          </div>
+        </div>
+
       </div>
-
-      {/* Team */}
-      <h2 className="text-3xl font-bold text-ieeeBlue text-center mb-10">
-        WIE Team 2026 ✨
-      </h2>
-
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {team.map((member, i) => (
-          <TeamCard key={i} {...member} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }
 

@@ -7,15 +7,16 @@ import Events from "./components/Events";
 import Team from "./components/Team";
 import Join from "./components/Join";
 import Contact from "./components/Contact";
+import Updates from "./components/Updates";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-softGray flex flex-col">
-        {/* Navbar */}
+      {/* 🌐 GLOBAL BACKGROUND */}
+      <div className="min-h-screen bg-softPurple flex flex-col">
+
         <NavBar />
 
-        {/* Pages */}
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -24,13 +25,14 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/join" element={<Join />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/updates" element={<Updates />} />
           </Routes>
         </main>
 
-        {/* Footer */}
         <footer className="bg-ieeeBlue text-white text-center py-4 text-sm">
           © 2026 IEEE Women in Engineering | BMSIT&M
         </footer>
+
       </div>
     </BrowserRouter>
   );
