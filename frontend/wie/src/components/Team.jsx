@@ -15,7 +15,12 @@ import sparsha from "../assets/team/sparsha.jpeg";
 import swati from "../assets/team/swati.jpeg";
 import pranjal from "../assets/team/pranjal.jpeg";
 
+// Faculty Adviser images
+import ashaGH from "../assets/team/ashaGH.jpeg";
+import ashaK from "../assets/team/ashaK.jpeg";
+
 function Team() {
+
   const excom = [
     {
       name: "Aditya Singh",
@@ -106,13 +111,31 @@ function Team() {
     },
   ];
 
+  const faculty = [
+    {
+      name: "Asha G.H",
+      role: "Faculty Adviser",
+      img: ashaGH,
+      punch: "Guiding direction, mentorship, and institutional alignment.",
+    },
+    {
+      name: "Asha K",
+      role: "Faculty Adviser",
+      img: ashaK,
+      punch: "Supporting growth through mentorship and academic leadership.",
+    },
+  ];
+
+  // Clean portrait-friendly card
   const MemberCard = ({ member }) => (
     <div className="flex flex-col items-center text-center">
-      <img
-        src={member.img}
-        alt={member.name}
-        className="w-52 h-52 object-cover rounded-xl shadow mb-4"
-      />
+      <div className="w-52 h-60 rounded-2xl bg-gray-100 shadow-md overflow-hidden mb-4">
+        <img
+          src={member.img}
+          alt={member.name}
+          className="w-full h-full object-cover object-top"
+        />
+      </div>
 
       <p className="text-lg italic text-gray-600 mb-3 max-w-sm">
         “{member.punch}”
@@ -146,7 +169,7 @@ function Team() {
         </div>
 
         {/* Team */}
-        <div>
+        <div className="mb-12">
           <h2 className="text-2xl font-semibold text-center mb-2">
             WIE Team 2026
           </h2>
@@ -156,6 +179,22 @@ function Team() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
             {team.map((member) => (
+              <MemberCard key={member.name} member={member} />
+            ))}
+          </div>
+        </div>
+
+        {/* Faculty Advisers — moved to end */}
+        <div>
+          <h2 className="text-2xl font-semibold text-center mb-2">
+            Faculty Advisers
+          </h2>
+          <p className="text-center text-gray-500 mb-12">
+            Mentors guiding IEEE WIE BMSIT&M with experience and academic leadership
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-24 justify-items-center">
+            {faculty.map((member) => (
               <MemberCard key={member.name} member={member} />
             ))}
           </div>
