@@ -187,7 +187,7 @@ function Team() {
         {/* Faculty Advisers — moved to end */}
         <div>
           <h2 className="text-2xl font-semibold text-center mb-2">
-            Faculty Advisers
+            Faculty Advisors
           </h2>
           <p className="text-center text-gray-500 mb-12">
             Mentors guiding IEEE WIE BMSIT&M with experience and academic leadership
