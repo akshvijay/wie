@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* 🌐 GLOBAL BACKGROUND */}
-      <div className="min-h-screen bg-softPurple flex flex-col">
+      <div className="min-h-screen bg-white flex flex-col">
 
         <NavBar />
 
