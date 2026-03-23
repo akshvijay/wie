@@ -12,27 +12,39 @@ import Updates from "./components/Updates";
 function App() {
   return (
     <BrowserRouter>
-      {/* 🌐 GLOBAL BACKGROUND */}
-      <div className="min-h-screen bg-white flex flex-col">
-
+      {/* 🌐 GLOBAL BACKGROUND — deep blue-to-midnight-purple gradient */}
+      <div
+        className="min-h-screen flex flex-col"
+        style={{
+          background:
+            "linear-gradient(135deg, #01022e 0%, #0a1045 55%, #0d0a2e 100%)",
+        }}
+      >
         <NavBar />
 
-        <main className="flex-grow">
+        {/* pt-24 compensates for the fixed navbar height */}
+        <main className="flex-grow pt-24">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/join" element={<Join />} />
+            <Route path="/"        element={<Home />} />
+            <Route path="/about"   element={<About />} />
+            <Route path="/events"  element={<Events />} />
+            <Route path="/team"    element={<Team />} />
+            <Route path="/join"    element={<Join />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/updates" element={<Updates />} />
           </Routes>
         </main>
 
-        <footer className="bg-ieeeBlue text-white text-center py-4 text-sm">
-          © 2026 IEEE Women in Engineering | BMSIT&M
+        {/* ── Footer — glassmorphism ── */}
+        <footer
+          className="text-center py-5 text-sm text-white/50 border-t border-white/10"
+          style={{
+            background: "rgba(255,255,255,0.03)",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          © 2026 IEEE Women in Engineering | BMSIT&amp;M
         </footer>
-
       </div>
     </BrowserRouter>
   );

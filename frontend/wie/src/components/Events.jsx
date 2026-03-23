@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // IH – Idea Heist
 import ih1 from "../assets/events/ih/ih1.jpeg";
@@ -25,49 +25,87 @@ import d2 from "../assets/events/don/d2.jpeg";
 import d3 from "../assets/events/don/d3.jpeg";
 import d4 from "../assets/events/don/d4.jpeg";
 
-/* ---------------- IMAGE SLIDER ---------------- */
-
+/* ── Polished Image Slider ─────────────────── */
 function ImageSlider({ images }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 2600);
-
-    return () => clearInterval(timer);
+    const t = setInterval(() => setIndex((p) => (p + 1) % images.length), 2800);
+    return () => clearInterval(t);
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-[24rem] bg-gray-100 rounded-2xl overflow-hidden shadow">
-      <img
-        key={index}
-        src={images[index]}
-        alt=""
-        className="absolute inset-0 w-full h-full object-contain p-4 animate-fade"
-      />
+    <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6)] border border-white/10 group">
+      {/* Aspect ratio wrapper */}
+      <div className="relative w-full" style={{ paddingBottom: "66.66%" }}>
+        {images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+            style={{ opacity: i === index ? 1 : 0 }}
+          />
+        ))}
+        {/* subtle vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 60%, rgba(1,2,46,0.4) 100%)",
+          }}
+        />
+      </div>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`rounded-full transition-all duration-300 ${
+              i === index ? "w-5 h-1.5 bg-purple-400" : "w-1.5 h-1.5 bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-/* ---------------- EVENT SECTION ---------------- */
+/* ── Scroll Reveal for sections ────────────── */
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".ev-sr");
+    const obs = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }
+        }),
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+}
 
+/* ── Event Section ─────────────────────────── */
 function EventSection({ title, subtitle, desc, images, reverse }) {
   return (
-    <section className="py-24">
+    <section className="ev-sr section-reveal py-20">
       <div
-        className={`max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${
-          reverse ? "lg:flex-row-reverse" : ""
-        }`}
+        className={`max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center`}
       >
         {reverse ? (
           <>
             <div>
-              <h2 className="text-4xl font-bold mb-4">{title}</h2>
-              <p className="text-lg text-gray-500 mb-6">{subtitle}</p>
-              <p className="text-gray-700 leading-relaxed max-w-xl">
-                {desc}
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-3 text-white">
+                {title}
+              </h2>
+              <p className="text-sm font-semibold uppercase tracking-widest text-purple-400 mb-6">
+                {subtitle}
               </p>
+              <p className="text-white/75 leading-relaxed text-base">{desc}</p>
             </div>
             <ImageSlider images={images} />
           </>
@@ -75,11 +113,13 @@ function EventSection({ title, subtitle, desc, images, reverse }) {
           <>
             <ImageSlider images={images} />
             <div>
-              <h2 className="text-4xl font-bold mb-4">{title}</h2>
-              <p className="text-lg text-gray-500 mb-6">{subtitle}</p>
-              <p className="text-gray-700 leading-relaxed max-w-xl">
-                {desc}
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-3 text-white">
+                {title}
+              </h2>
+              <p className="text-sm font-semibold uppercase tracking-widest text-purple-400 mb-6">
+                {subtitle}
               </p>
+              <p className="text-white/75 leading-relaxed text-base">{desc}</p>
             </div>
           </>
         )}
@@ -88,21 +128,25 @@ function EventSection({ title, subtitle, desc, images, reverse }) {
   );
 }
 
-/* ---------------- MAIN EVENTS PAGE ---------------- */
-
+/* ── Events Page ───────────────────────────── */
 function Events() {
-  return (
-    <div className="bg-white">
+  useReveal();
 
+  return (
+    <div>
       {/* Page Header */}
       <div className="text-center pt-16 pb-10 px-6">
-        <h1 className="text-5xl font-bold mb-4">Our Events</h1>
-        <p className="text-gray-600 max-w-3xl mx-auto">
+        <h1 className="text-5xl font-display font-bold text-white glow-text mb-4">
+          Our Events
+        </h1>
+        <p className="text-white/60 max-w-3xl mx-auto text-base">
           Each initiative reflects our commitment to innovation, inclusion, and impact.
         </p>
       </div>
 
-      {/* IDEA HEIST */}
+      {/* Divider */}
+      <hr className="wie-divider max-w-4xl mx-auto" />
+
       <EventSection
         title="I.D.E.A Heist 💰"
         subtitle="Innovation • Debugging • Strategy"
@@ -110,7 +154,8 @@ function Events() {
         images={[ih1, ih2, ih3, ih4]}
       />
 
-      {/* STEM */}
+      <hr className="wie-divider max-w-4xl mx-auto" />
+
       <EventSection
         title="Project STEMSetGo! 🌱"
         subtitle="Empowering young minds through STEM & IoT"
@@ -119,7 +164,8 @@ function Events() {
         reverse
       />
 
-      {/* SMILE */}
+      <hr className="wie-divider max-w-4xl mx-auto" />
+
       <EventSection
         title="SMILE Project 😊"
         subtitle="AI • Empathy • Human Connection"
@@ -127,15 +173,15 @@ function Events() {
         images={[sm1, sm2, sm3, sm4]}
       />
 
-      {/* DONATION DRIVE */}
+      <hr className="wie-divider max-w-4xl mx-auto" />
+
       <EventSection
         title="Wings of Hope 🕊️💛"
         subtitle="Compassion • Care • Community"
-        desc="An effort to give every child the chance to fly. What started as a donation drive became a moment of shared purpose. Wings of Hope wasn’t just about giving—it was about standing together, believing in hope, and creating impact that lasts beyond the event."
+        desc="An effort to give every child the chance to fly. What started as a donation drive became a moment of shared purpose. Wings of Hope wasn't just about giving—it was about standing together, believing in hope, and creating impact that lasts beyond the event."
         images={[d1, d2, d3, d4]}
         reverse
       />
-
     </div>
   );
 }
