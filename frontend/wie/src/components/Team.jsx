@@ -4,25 +4,25 @@ import { useEffect, useRef } from "react";
 import aditya   from "../assets/team/aditya.jpeg";
 import mimansha from "../assets/team/mimansha.jpeg";
 import ansh     from "../assets/team/ansh.jpeg";
-import rohit    from "../assets/team/Rohit M H.jpeg"; // ✅ updated
+import rohit    from "../assets/team/Rohit M H.jpeg";
 import adarsh   from "../assets/team/adarsh.jpeg";
 import akshita  from "../assets/team/akshita.jpeg";
 import sushma   from "../assets/team/sushma.jpeg";
 import priya    from "../assets/team/priya.jpeg";
 
 import hasini   from "../assets/team/hasini.jpeg";
+import akanksha from "../assets/team/akanksha.jpeg"; // ✅ added
 import kushadhi from "../assets/team/kushadhi.jpeg";
 import poorvi   from "../assets/team/poorvi.jpeg";
 import sparsha  from "../assets/team/sparsha.jpeg";
 import swati    from "../assets/team/swati.jpeg";
 import pranjal  from "../assets/team/pranjal.jpeg";
-import sanjana  from "../assets/team/sanjana.jpeg"; // ✅ added
+import sanjana  from "../assets/team/sanjana.jpeg";
 
-// Faculty
 import ashaGH from "../assets/team/ashaGH.jpeg";
 import ashaK  from "../assets/team/ashaK.jpeg";
 
-/* ── Tilt effect ───────────────────────────── */
+/* Tilt */
 function useTilt(ref) {
   useEffect(() => {
     const el = ref.current;
@@ -49,7 +49,7 @@ function useTilt(ref) {
   }, [ref]);
 }
 
-/* ── Member Card ───────────────────────────── */
+/* Card */
 function MemberCard({ member }) {
   const ref = useRef(null);
   useTilt(ref);
@@ -61,57 +61,44 @@ function MemberCard({ member }) {
       style={{
         background: "rgba(255, 255, 255, 0.05)",
         backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
         border: "1px solid rgba(210, 180, 140, 0.25)",
         borderRadius: "18px",
         boxShadow: "0 8px 30px rgba(0, 0, 0, 0.25)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+        transition: "all 0.3s ease",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "#d2b48c";
-        e.currentTarget.style.boxShadow =
-          "0 12px 40px rgba(210, 180, 140, 0.2), 0 8px 30px rgba(0,0,0,0.3)";
         e.currentTarget.style.transform = "translateY(-6px)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "rgba(210, 180, 140, 0.25)";
-        e.currentTarget.style.boxShadow = "0 8px 30px rgba(0, 0, 0, 0.25)";
         e.currentTarget.style.transform = "translateY(0)";
       }}
     >
-      {/* Photo */}
-      <div
-        className="w-44 h-52 overflow-hidden mb-5"
-        style={{
-          borderRadius: "12px",
-          border: "1px solid rgba(210, 180, 140, 0.2)",
-          boxShadow: "inset 0 0 12px rgba(0,0,0,0.3)",
-        }}
-      >
+      <div className="w-44 h-52 overflow-hidden mb-5 rounded-xl">
         <img
           src={member.img}
           alt={member.name}
-          className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-[1.03]"
+          className="w-full h-full object-cover object-top"
         />
       </div>
 
-      {/* Punch */}
-      <p className="text-xs italic mb-3 max-w-[200px] leading-relaxed text-white/50">
+      <p className="text-xs italic mb-3 text-white/50">
         "{member.punch}"
       </p>
 
-      <h3 className="text-base font-semibold text-[#f5deb3]">
+      <h3 className="text-[#f5deb3] font-semibold">
         {member.name}
       </h3>
 
-      <p className="text-xs mt-1 text-white/65">
+      <p className="text-xs text-white/60">
         {member.role}
       </p>
     </div>
   );
 }
 
-/* ── Heading ───────────────────────────── */
+/* Heading */
 function SectionHeading({ title, subtitle }) {
   return (
     <div className="text-center mb-14">
@@ -121,7 +108,7 @@ function SectionHeading({ title, subtitle }) {
   );
 }
 
-/* ── Reveal ───────────────────────────── */
+/* Reveal */
 function useReveal(sel) {
   useEffect(() => {
     const els = document.querySelectorAll(sel);
@@ -141,7 +128,7 @@ function useReveal(sel) {
   }, [sel]);
 }
 
-/* ── Main ───────────────────────────── */
+/* Main */
 function Team() {
   useReveal(".team-sr");
 
@@ -149,10 +136,7 @@ function Team() {
     { name: "Mimansha Mishra", role: "Chairperson", img: mimansha, punch: "Driving vision, leadership, and strategic growth." },
     { name: "Aditya Singh", role: "Vice Chairperson", img: aditya, punch: "Strengthening leadership through collaboration and execution." },
     { name: "Ansh Rastogi", role: "Secretary", img: ansh, punch: "Ensuring clarity, coordination, and continuity." },
-
-    // ✅ UPDATED
     { name: "Rohit M H", role: "Treasurer", img: rohit, punch: "Managing resources with transparency and responsibility." },
-
     { name: "Adarsh Singh", role: "Technical Head", img: adarsh, punch: "Leading innovation and technical excellence." },
     { name: "Akshita", role: "Technical Co-Head", img: akshita, punch: "Building reliable systems and technical support." },
     { name: "Sushma", role: "Marketing Head", img: sushma, punch: "Amplifying impact through strategic communication." },
@@ -161,13 +145,15 @@ function Team() {
 
   const team = [
     { name: "Hasini", role: "Technical Associate", img: hasini, punch: "Supporting development and technical initiatives." },
+
+    // ✅ NEW AKANKSHA
+    { name: "Akanksha", role: "Technical Associate", img: akanksha, punch: "Contributing to development and technical solutions." },
+
     { name: "Kushadhi J", role: "Media Associate", img: kushadhi, punch: "Curating content and visual storytelling." },
     { name: "Poorvi", role: "Events Associate", img: poorvi, punch: "Assisting in planning and execution of events." },
     { name: "Sparsha S", role: "Events Associate", img: sparsha, punch: "Coordinating logistics and participant engagement." },
     { name: "Swati Garg", role: "Marketing Associate", img: swati, punch: "Extending outreach through creative campaigns." },
     { name: "Pranjal", role: "Design Associate", img: pranjal, punch: "Crafting visuals with clarity and purpose." },
-
-    // ✅ NEW
     { name: "Sanjana", role: "Design Associate", img: sanjana, punch: "Creative design and visual storytelling." },
   ];
 
@@ -180,7 +166,6 @@ function Team() {
     <section className="pt-8 pb-20 px-6">
       <div className="max-w-6xl mx-auto">
 
-        {/* ExCom */}
         <div className="team-sr mb-20">
           <SectionHeading
             title="WIE ExCom 2026"
@@ -193,7 +178,6 @@ function Team() {
 
         <hr className="mb-20" />
 
-        {/* Team */}
         <div className="team-sr mb-20">
           <SectionHeading
             title="WIE Team 2026"
@@ -206,7 +190,6 @@ function Team() {
 
         <hr className="mb-20" />
 
-        {/* Faculty */}
         <div className="team-sr">
           <SectionHeading
             title="Faculty Advisors"
