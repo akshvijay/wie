@@ -1,56 +1,194 @@
+/* ─────────────────────────────────────────────
+   IEEE WIE BMSIT&M  |  Global Styles
+   ───────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Times New Roman", Times, serif;
-  @apply text-lg;
-}
-@keyframes fade {
-  from {
-    opacity: 0;
+/* ── Base ───────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
-  to {
-    opacity: 1;
+
+  body {
+    font-family: "Inter", "Poppins", sans-serif;
+    @apply text-base antialiased;
+    background: linear-gradient(135deg, #01022e 0%, #0a1045 55%, #0d0a2e 100%);
+    min-height: 100vh;
+    color: #e2e8f0;
+  }
+
+  /* remove default max-width constraint from Vite */
+  #root {
+    max-width: 100% !important;
+    padding: 0 !important;
+    text-align: left !important;
   }
 }
 
-.animate-fade {
-  animation: fade 0.6s ease-in-out;
-}
-/* Slide Up Animation */
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
+/* ── Glass Card Utility ─────────────────────── */
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/10;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
   }
-  100% {
+
+  .glass-card:hover {
+    border-color: rgba(124, 58, 237, 0.45);
+    box-shadow: 0 0 50px rgba(124, 58, 237, 0.25), 0 8px 32px rgba(0,0,0,0.55);
+  }
+
+  .glow-text {
+    text-shadow:
+      0 0 20px rgba(124, 58, 237, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .glow-text-blue {
+    text-shadow:
+      0 0 18px rgba(0, 98, 155, 0.7),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Gradient border button */
+  .btn-gradient {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold text-white overflow-hidden;
+    background: linear-gradient(135deg, #7c3aed, #00629B);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+  }
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 32px rgba(124, 58, 237, 0.55);
+  }
+
+  /* Amber accent button (Join WIE) */
+  .btn-amber {
+    @apply relative inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold text-gray-900 overflow-hidden;
+    background: linear-gradient(135deg, #FDB515, #f59e0b);
+    box-shadow: 0 4px 16px rgba(253, 181, 21, 0.3);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+  }
+  .btn-amber:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(253, 181, 21, 0.55);
+  }
+}
+
+/* ── Scroll Reveal ──────────────────────────── */
+@layer utilities {
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .section-reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* staggered siblings */
+  .section-reveal:nth-child(2) { transition-delay: 0.1s; }
+  .section-reveal:nth-child(3) { transition-delay: 0.2s; }
+  .section-reveal:nth-child(4) { transition-delay: 0.3s; }
+  .section-reveal:nth-child(5) { transition-delay: 0.4s; }
 }
 
-.animate-slideUp {
-  animation: slideUp 1s ease-out forwards;
+/* ── Keyframe Animations ────────────────────── */
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
+.animate-fade { animation: fade 0.6s ease-in-out; }
 
-/* Gradient Flow Animation */
+@keyframes slideUp {
+  0%   { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp { animation: slideUp 0.9s ease-out forwards; }
+
 @keyframes gradientMove {
-  0% { background-position: 0% }
-  100% { background-position: 200% }
+  0%   { background-position: 0%; }
+  100% { background-position: 200%; }
 }
-
 .animate-gradient {
   background-size: 200% auto;
   animation: gradientMove 5s linear infinite;
 }
 
-/* Underline Glow */
 @keyframes underlineGlow {
-  0% { width: 0; opacity: 0 }
-  100% { width: 160px; opacity: 1 }
+  0%   { width: 0; opacity: 0; }
+  100% { width: 160px; opacity: 1; }
+}
+.animate-underlineGlow { animation: underlineGlow 1.2s ease forwards; }
+
+@keyframes underlineExpand {
+  0%   { width: 0; opacity: 0; }
+  100% { width: 100%; opacity: 1; }
+}
+.animate-underlineExpand {
+  animation: underlineExpand 1.2s ease forwards;
 }
 
-.animate-underlineGlow {
-  animation: underlineGlow 1.2s ease forwards;
+@keyframes kenBurns {
+  0%   { transform: scale(1.0) translate(0px, 0px); }
+  100% { transform: scale(1.08) translate(-8px, -4px); }
+}
+.animate-ken-burns {
+  animation: kenBurns 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(124,58,237,0.3); }
+  50%       { box-shadow: 0 0 42px rgba(124,58,237,0.65); }
+}
+.animate-glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+@keyframes shimmerMove {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.06) 50%, transparent 75%);
+  background-size: 200% auto;
+  animation: shimmerMove 2.5s linear infinite;
+}
+
+/* ── Tilt Card (3D hover) ───────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transition: transform 0.15s ease;
+  will-change: transform;
+}
+
+/* ── Divider Gradient ───────────────────────── */
+.wie-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.4), rgba(0,98,155,0.4), transparent);
+  margin: 0;
+}
+
+/* ── Reduced motion fallback ────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal,
+  .animate-ken-burns,
+  .animate-glow-pulse,
+  .tilt-card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
