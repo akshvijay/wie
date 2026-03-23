@@ -147,7 +147,7 @@ function Team() {
     { name: "Hasini", role: "Technical Associate", img: hasini, punch: "Supporting development and technical initiatives." },
 
     // ✅ NEW AKANKSHA
-    { name: "Akanksha", role: "Technical Associate", img: akanksha, punch: "Contributing to development and technical solutions." },
+   
 
     { name: "Kushadhi J", role: "Media Associate", img: kushadhi, punch: "Curating content and visual storytelling." },
     { name: "Poorvi", role: "Events Associate", img: poorvi, punch: "Assisting in planning and execution of events." },
@@ -155,6 +155,7 @@ function Team() {
     { name: "Swati Garg", role: "Marketing Associate", img: swati, punch: "Extending outreach through creative campaigns." },
     { name: "Pranjal", role: "Design Associate", img: pranjal, punch: "Crafting visuals with clarity and purpose." },
     { name: "Sanjana", role: "Design Associate", img: sanjana, punch: "Creative design and visual storytelling." },
+    { name: "Akanksha", role: "Design Associate", img: akanksha, punch: "Bringing creativity to design and visuals." },
   ];
 
   const faculty = [
