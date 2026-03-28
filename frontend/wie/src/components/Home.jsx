@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom"; // Import this for navigation
 
 import slide1 from "../assets/home/slide1.png";
 import slide2 from "../assets/home/slide2.png";
@@ -11,6 +12,7 @@ const SLIDES = [slide1, slide2, slide3, slide4, slide5];
 
 function Home() {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -22,10 +24,7 @@ function Home() {
   return (
     <section className="relative h-full w-full text-white flex items-center px-6 md:px-16 overflow-hidden">
       
-      {/* CLEAN BACKGROUND: 
-         Removed the SVG pattern and checks. 
-         Keeping subtle ambient glows for depth.
-      */}
+      {/* Background Glows */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
@@ -33,7 +32,7 @@ function Home() {
 
       <div className="grid md:grid-cols-2 gap-12 items-center w-full z-10">
         
-        {/* LEFT CONTENT WITH MOTION */}
+        {/* LEFT CONTENT */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -64,19 +63,28 @@ function Home() {
             transition={{ delay: 0.8 }}
             className="flex flex-wrap gap-5"
           >
-            <button className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold hover:bg-yellow-300 hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.2)] active:scale-95">
+            {/* Navigates to the Join/Registration page */}
+            <button 
+              onClick={() => navigate("/join")}
+              className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold hover:bg-yellow-300 hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.2)] active:scale-95"
+            >
               Join WIE
             </button>
-            <button className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-black transition-all active:scale-95">
+
+            {/* FIXED: Now navigates to the Events page */}
+            <button 
+              onClick={() => navigate("/events")}
+              className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-black transition-all active:scale-95"
+            >
               Explore Events
             </button>
           </motion.div>
         </motion.div>
 
-        {/* RIGHT SLIDESHOW WITH MOTION */}
+        {/* RIGHT SLIDESHOW */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9, r: 10 }}
-          animate={{ opacity: 1, scale: 1, r: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative group"
         >
