@@ -1,137 +1,118 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import slide1 from "../assets/home/slide1.png";
 import slide2 from "../assets/home/slide2.png";
-import slide3 from "../assets/home/slide 3.png";
+import slide3 from "../assets/home/slide 3.png"; 
 import slide4 from "../assets/home/slide 4.png";
-import slide5 from "../assets/home/slide 5.png";
 
-const SLIDES = [slide1, slide2, slide3, slide4, slide5];
-const INTERVAL = 4500;
+const SLIDES = [slide1, slide2, slide3, slide4];
 
 function Home() {
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const next = useCallback(
-    () => setCurrent((p) => (p + 1) % SLIDES.length),
-    []
-  );
-  const prev = useCallback(
-    () => setCurrent((p) => (p - 1 + SLIDES.length) % SLIDES.length),
-    []
-  );
 
   useEffect(() => {
-    if (paused) return;
-    const id = setInterval(next, INTERVAL);
+    const id = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    }, 4000);
     return () => clearInterval(id);
-  }, [paused, next]);
+  }, []);
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ height: "calc(100vh - 5rem)" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* ── Slides ── */}
-      {SLIDES.map((img, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-        >
-
-          <img
-            src={img}
-            alt="IEEE WIE Event"
-            className="w-full h-full object-contain object-center select-none"
-          />
-
-          {/* Multi-stop gradient overlay — richer depth */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(1,2,46,0.85) 0%, rgba(10,16,69,0.55) 50%, rgba(13,10,46,0.30) 100%)",
-            }}
-          />
-        </div>
-      ))}
-
-      {/* ── Hero Text ── */}
-      <div
-        className="relative flex flex-col items-center justify-center h-full text-center px-6"
-        style={{ zIndex: 10 }}
-      >
-        <h1
-          className="text-white font-display font-extrabold tracking-[0.15em] mb-4 select-none animate-slideUp"
-          style={{
-            fontSize: "clamp(4rem, 12vw, 9rem)",
-            textShadow:
-              "0 0 40px rgba(124,58,237,0.8), 0 0 80px rgba(124,58,237,0.4), 0 4px 8px rgba(0,0,0,0.6)",
-            lineHeight: 1,
-          }}
-        >
-          WIE
-        </h1>
-
-        <p
-          className="text-white/85 font-medium tracking-widest uppercase animate-slideUp"
-          style={{
-            fontSize: "clamp(0.85rem, 2.5vw, 1.25rem)",
-            animationDelay: "0.2s",
-            animationFillMode: "both",
-            letterSpacing: "0.2em",
-          }}
-        >
-          IEEE Women in Engineering – BMSIT&amp;M
-        </p>
-
-        {/* Decorative divider */}
-        <div
-          className="mt-8 mb-0 h-px w-32 rounded-full opacity-60"
-          style={{
-            background: "linear-gradient(90deg, transparent, #a78bfa, transparent)",
-            animationDelay: "0.4s",
-          }}
-        />
+    <section className="relative h-full w-full text-white flex items-center px-6 md:px-16 overflow-hidden">
+      
+      {/* CLEAN BACKGROUND: 
+         Removed the SVG pattern and checks. 
+         Keeping subtle ambient glows for depth.
+      */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* ── Prev / Next chevrons ── */}
-      {[
-        { onClick: prev, side: "left", symbol: "‹" },
-        { onClick: next, side: "right", symbol: "›" },
-      ].map(({ onClick, side, symbol }) => (
-        <button
-          key={side}
-          onClick={onClick}
-          className={`absolute top-1/2 -translate-y-1/2 ${side}-5 z-20
-            w-10 h-10 flex items-center justify-center rounded-full
-            text-white/60 hover:text-white text-2xl
-            border border-white/10 hover:border-purple-400/50
-            transition-all duration-200 hover:bg-white/10`}
-          style={{ backdropFilter: "blur(8px)" }}
-          aria-label={side === "left" ? "Previous" : "Next"}
+      <div className="grid md:grid-cols-2 gap-12 items-center w-full z-10">
+        
+        {/* LEFT CONTENT WITH MOTION */}
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {symbol}
-        </button>
-      ))}
+          <motion.span 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-medium mb-6 inline-block"
+          >
+            IEEE WIE BMSIT&M Section
+          </motion.span>
+          
+          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
+            Empowering <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Women</span> <br /> 
+            in Technology
+          </h1>
 
-      {/* ── Dot indicators ── */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 ${i === current
-                ? "w-6 h-2 bg-purple-400"
-                : "w-2 h-2 bg-white/30 hover:bg-white/55"
-              }`}
-            aria-label={`Slide ${i + 1}`}
-          />
-        ))}
+          <p className="text-gray-400 text-lg max-w-lg mb-8 leading-relaxed">
+            Building innovators, leaders, and a strong tech community. 
+            Join a global network dedicated to changing the world.
+          </p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-wrap gap-5"
+          >
+            <button className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold hover:bg-yellow-300 hover:scale-105 transition-all shadow-[0_0_20px_rgba(250,204,21,0.2)] active:scale-95">
+              Join WIE
+            </button>
+            <button className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-black transition-all active:scale-95">
+              Explore Events
+            </button>
+          </motion.div>
+        </motion.div>
+
+        {/* RIGHT SLIDESHOW WITH MOTION */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, r: 10 }}
+          animate={{ opacity: 1, scale: 1, r: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative group"
+        >
+          <div className="relative w-full h-[450px] md:h-[550px] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute inset-0"
+              >
+                <img
+                  src={SLIDES[current]}
+                  alt="WIE Event"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#01022e] via-transparent to-transparent opacity-60" />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Slide Progress Bar */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+              {SLIDES.map((_, i) => (
+                <motion.div 
+                  key={i} 
+                  animate={{ 
+                    width: i === current ? 32 : 8,
+                    backgroundColor: i === current ? "#facc15" : "rgba(255,255,255,0.3)" 
+                  }}
+                  className="h-1.5 rounded-full"
+                />
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
