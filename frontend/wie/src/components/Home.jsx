@@ -5,8 +5,9 @@ import slide1 from "../assets/home/slide1.png";
 import slide2 from "../assets/home/slide2.png";
 import slide3 from "../assets/home/slide 3.png"; 
 import slide4 from "../assets/home/slide 4.png";
+import slide5 from "../assets/home/slide 5.png";
 
-const SLIDES = [slide1, slide2, slide3, slide4];
+const SLIDES = [slide1, slide2, slide3, slide4, slide5];
 
 function Home() {
   const [current, setCurrent] = useState(0);
